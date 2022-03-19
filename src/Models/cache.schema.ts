@@ -6,7 +6,7 @@ export type CacheDocument = Cache & Document;
 @Schema()
 export class Cache {
 
-    @Prop({ required: true })
+    @Prop({ required: true, index: true, unique: true })
     key: string;
 
     @Prop({ required: true })
