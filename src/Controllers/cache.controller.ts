@@ -1,23 +1,48 @@
-import { Controller, Get, Post } from '@nestjs/common';
-import { CacheService } from '../Services/cache.service';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
+import { Cache } from "src/Models/cache.schema";
+import { CacheService } from "src/Services/cache.service";
 
-@Controller("cache")
+@Controller('chache')
 export class CacheController {
-  constructor(private readonly appService: CacheService) { }
+    constructor(private readonly cacheService: CacheService){}
 
-  @Get()
-  get(): string {
-    return "";
-    // return this.appService.getHello();
-  }
+    @Post()
+    async createCache(@Res() response, @Body() cache: Cache) {
+        const newCache = await this.cacheService.create(cache);
+        return response.status(HttpStatus.CREATED).json({
+            newCache
+        })
+    }
 
-  @Post()
-  async create(): Promise<string> {
-    return 'This action adds a new cat';
-  }
+    @Get()
+    async fetchAll(@Res() response) {
+        const chahces = await this.cacheService.readAll();
+        return response.status(HttpStatus.OK).json({
+          chahces
+        })
+    }
 
-  // @Get()
-  // getHello(): string {
-  //   return this.appService.getHello();
-  // }
+    @Get('/:id')
+    async findById(@Res() response, @Param('id') id) {
+        const cache = await this.cacheService.readById(id);
+        return response.status(HttpStatus.OK).json({
+          cache
+        })
+    }
+
+    @Put('/:id')
+    async update(@Res() response, @Param('id') id, @Body() cache: Cache) {
+        const updatedCache = await this.cacheService.update(id, cache);
+        return response.status(HttpStatus.OK).json({
+          updatedCache
+        })
+    }
+
+    @Delete('/:id')
+    async delete(@Res() response, @Param('id') id) {
+        const deletedCache = await this.cacheService.delete(id);
+        return response.status(HttpStatus.OK).json({
+          deletedCache
+        })
+    }
 }
