@@ -3,9 +3,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CacheController } from './Controllers/cache.controller';
 import { CacheService } from './Services/cache.service';
 import { config } from 'config'
+import { CacheSchema } from './Models/cache.schema';
 
 @Module({
-  imports: [MongooseModule.forRoot(config.get('db'))],
+  imports: [
+    MongooseModule.forRoot(config.get('db')),
+    MongooseModule.forFeature([{ name: Cache.name, schema: CacheSchema }])
+  ],
   controllers: [CacheController],
   providers: [CacheService],
 })

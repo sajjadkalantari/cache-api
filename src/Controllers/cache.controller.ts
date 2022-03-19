@@ -7,7 +7,8 @@ export class CacheController {
 
   @Get()
   get(): string {
-    return this.appService.getHello();
+    return "";
+    // return this.appService.getHello();
   }
 
   @Post()
