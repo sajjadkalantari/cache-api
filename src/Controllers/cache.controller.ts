@@ -45,7 +45,7 @@ export class CacheController {
   }
 
   @Put()
-  async update(@Res() response, @Param('id') id, @Body() cache: Cache) {
+  async update(@Res() response, @Body() cache: Cache) {
     const updatedCache = await this.cacheService.update(cache);
     return response.status(HttpStatus.OK).json({ updatedCache })
   }
@@ -53,6 +53,12 @@ export class CacheController {
   @Delete('/:key')
   async delete(@Res() response, @Param('key') key) {
     const deletedCache = await this.cacheService.delete(key);
+    return response.status(HttpStatus.OK).json({ deletedCache })
+  }
+
+  @Delete('/flushall')
+  async flushAll(@Res() response) {
+    const deletedCache = await this.cacheService.deleteAll();
     return response.status(HttpStatus.OK).json({ deletedCache })
   }
 }

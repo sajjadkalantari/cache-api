@@ -28,4 +28,8 @@ export class CacheService {
     async delete(key): Promise<any> {
         return await this.cacheModel.deleteOne({ key });
     }
+
+    async deleteAll(): Promise<any> {
+        return await this.cacheModel.deleteMany();
+    }
 }
