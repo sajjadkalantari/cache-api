@@ -47,16 +47,12 @@ export class CacheController {
   @Put()
   async update(@Res() response, @Param('id') id, @Body() cache: Cache) {
     const updatedCache = await this.cacheService.update(cache);
-    return response.status(HttpStatus.OK).json({
-      updatedCache
-    })
+    return response.status(HttpStatus.OK).json({ updatedCache })
   }
 
-  @Delete('/:id')
-  async delete(@Res() response, @Param('id') id) {
-    const deletedCache = await this.cacheService.delete(id);
-    return response.status(HttpStatus.OK).json({
-      deletedCache
-    })
+  @Delete('/:key')
+  async delete(@Res() response, @Param('key') key) {
+    const deletedCache = await this.cacheService.delete(key);
+    return response.status(HttpStatus.OK).json({ deletedCache })
   }
 }

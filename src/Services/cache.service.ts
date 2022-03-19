@@ -25,7 +25,7 @@ export class CacheService {
         return await this.cacheModel.findOneAndUpdate(cache, { new: true })
     }
 
-    async delete(id): Promise<any> {
-        return await this.cacheModel.findByIdAndRemove(id);
+    async delete(key): Promise<any> {
+        return await this.cacheModel.deleteOne({ key });
     }
 }
