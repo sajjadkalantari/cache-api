@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from
 import { Cache } from "src/Models/cache.schema";
 import { CacheService } from "src/Services/cache.service";
 import { Logger } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Controller('cache')
 export class CacheController {
@@ -18,20 +20,28 @@ export class CacheController {
     })
   }
 
-  @Get()
-  async fetchAll(@Res() response) {
-    const chahces = await this.cacheService.readAll();
+  @Get('/keys')
+  async fetchAllKeys(@Res() response) {
+    const chahcesKeys = await this.cacheService.readAllKeys();
     return response.status(HttpStatus.OK).json({
-      chahces
+      chahcesKeys
     })
   }
 
-  @Get('/:id')
-  async findById(@Res() response, @Param('id') id) {
-    const cache = await this.cacheService.readById(id);
-    return response.status(HttpStatus.OK).json({
-      cache
-    })
+  @Get('/:key')
+  async findByKey(@Res() response, @Param('key') key) {
+
+    let cache = await this.cacheService.findByKey(key);
+
+    if (cache) {
+      this.logger.log("Cache Missed");
+      cache = await this.cacheService.create(Cache.Create(key, uuidv4()));
+    } else
+      this.logger.log("Cache Hits");
+
+
+    return response.status(HttpStatus.OK).json({ cache });
+
   }
 
   @Put('/:id')
