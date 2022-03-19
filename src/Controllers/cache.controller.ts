@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from
 import { Cache } from "src/Models/cache.schema";
 import { CacheService } from "src/Services/cache.service";
 
-@Controller('chache')
+@Controller('cache')
 export class CacheController {
     constructor(private readonly cacheService: CacheService){}
 
