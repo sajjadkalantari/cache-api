@@ -9,6 +9,7 @@ export class CacheService {
     constructor(@InjectModel(Cache.name) private cacheModel: Model<CacheDocument>) { }
 
     async create(cache: Cache): Promise<Cache> {
+
         const newCache = new this.cacheModel(cache);
         return newCache.save();
     }
@@ -18,7 +19,7 @@ export class CacheService {
     }
 
     async findByKey(key): Promise<Cache> {
-        return await this.cacheModel.findOne({ key }).exec();
+        return await this.cacheModel.findOneAndUpdate({ key }, { ttl: Cache.GetTTL() }).exec();
     }
 
     async update(cache: Cache): Promise<Cache> {

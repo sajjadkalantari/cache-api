@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CacheController } from './Controllers/cache.controller';
 import { CacheService } from './Services/cache.service';
-import { config } from 'config'
+import * as config from 'config';
 import { CacheSchema } from './Models/cache.schema';
 
 @Module({

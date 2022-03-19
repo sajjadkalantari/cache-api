@@ -2,5 +2,7 @@
   "jwtPrivateKey": "unsecureKey",
   "db": "mongodb://localhost/vidly",
   "port": "3900",
-  "requiresAuth": false
+  "requiresAuth": false,
+  "maxCacheLimit": 1000,
+  "ttlTimeInMinutes": 30
 }

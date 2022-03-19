@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import * as moment from 'moment';
+import * as config from 'config';
 export type CacheDocument = Cache & Document;
 
 @Schema()
@@ -19,10 +20,14 @@ export class Cache {
         let model: Cache = {
             key: key,
             value: value,
-            ttl: moment().add(30, 'm').toDate()
+            ttl: moment().add(config.get('ttlTimeInMinutes'), 'm').toDate()
         };
 
         return model;
+    }
+
+    static GetTTL(): Date {
+        return moment().add(config.get('ttlTimeInMinutes'), 'm').toDate();
     }
 }
 
