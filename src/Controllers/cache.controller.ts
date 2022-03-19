@@ -44,9 +44,9 @@ export class CacheController {
 
   }
 
-  @Put('/:id')
+  @Put()
   async update(@Res() response, @Param('id') id, @Body() cache: Cache) {
-    const updatedCache = await this.cacheService.update(id, cache);
+    const updatedCache = await this.cacheService.update(cache);
     return response.status(HttpStatus.OK).json({
       updatedCache
     })
