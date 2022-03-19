@@ -6,10 +6,10 @@ export type CacheDocument = Cache & Document;
 @Schema()
 export class Cache {
 
-    @Prop()
+    @Prop({ required: true })
     key: string;
 
-    @Prop()
+    @Prop({ required: true })
     value: string;
 
     @Prop()
