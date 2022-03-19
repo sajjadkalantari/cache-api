@@ -15,17 +15,13 @@ export class CacheController {
   @Post()
   async createCache(@Res() response, @Body() cache: Cache) {
     const newCache = await this.cacheService.create(cache);
-    return response.status(HttpStatus.CREATED).json({
-      newCache
-    })
+    return response.status(HttpStatus.CREATED).json({ newCache });
   }
 
   @Get('/keys')
   async fetchAllKeys(@Res() response) {
     const chahcesKeys = await this.cacheService.readAllKeys();
-    return response.status(HttpStatus.OK).json({
-      chahcesKeys
-    })
+    return response.status(HttpStatus.OK).json({ chahcesKeys });
   }
 
   @Get('/:key')
