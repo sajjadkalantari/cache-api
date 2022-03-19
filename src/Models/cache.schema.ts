@@ -16,11 +16,14 @@ export class Cache {
     @Prop()
     ttl: Date;
 
+    hits: number;
+
     static Create(key: string, value: string): Cache {
         let model: Cache = {
             key: key,
             value: value,
-            ttl: moment().add(config.get('ttlTimeInMinutes'), 'm').toDate()
+            ttl: moment().add(config.get('ttlTimeInMinutes'), 'm').toDate(),
+            hits: 0
         };
 
         return model;
